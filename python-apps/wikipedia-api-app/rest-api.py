@@ -29,8 +29,6 @@ class GetArticle(Resource):
         encodedArticle = MyEncoder().encode(article)
         return encodedArticle
 
-class AddNewStuff()
-
 api.add_resource(PerformQuery, '/query/<queryString>')
 api.add_resource(GetArticle, '/getArticle/<articleName>')
 
