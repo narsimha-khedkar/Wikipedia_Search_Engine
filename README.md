@@ -32,6 +32,8 @@ See these links for more on how to use MarkDown:
 ## Software Requirements
 In order to compile and execute these projects, you'll need to install the following:
 
+- Git:
+    - https://git-scm.com/downloads    
 - NodeJS: https://nodejs.org/en/
     - Either the LTS/recommended or current version will work.
     - This will also install npm package manager
@@ -43,6 +45,7 @@ In order to compile and execute these projects, you'll need to install the follo
     - Azure Repos: https://marketplace.visualstudio.com/items?itemName=ms-vsts.team
     - Git Project Manager: https://marketplace.visualstudio.com/items?itemName=felipecaputo.git-project-manager
     - Python: https://marketplace.visualstudio.com/items?itemName=ms-python.python
+
 
 ## Cloning the repo
 
