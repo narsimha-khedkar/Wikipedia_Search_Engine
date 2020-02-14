@@ -16,17 +16,19 @@ distance('Levenshtein', 'Lenvinsten')
 
 from fuzzywuzzy import process
 
-with open("output.txt","r") as file:
-    terms = file.read().split("\n")
+with open("570.txt","r") as file:
+    #terms = file.read().split("\n")
+    terms = file.read().split(" ")
 
 total = len(terms)
 print("Number of Terms: ", str(total))
 
 def get_matches(word, possibilities, limit =3):
-        results = process.extract(word, possibilities, limit=limit)
+        #results = process.extract(word, possibilities, limit=limit)
+        results = process.extractOne(word, possibilities)
         return results
     
-print(get_matches("Mustard", terms))
+print(get_matches("returning the", terms))
 
 
 
