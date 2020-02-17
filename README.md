@@ -14,6 +14,7 @@ It currently contains the following projects:
     - [Markdown Information](#markdown-information)
     - [Software Requirements](#software-requirements)
     - [Cloning the repo](#cloning-the-repo)
+    - [Committing changes](#committing-changes)
 - [Changelog](#changelog)
 - [TODO List](#todo-list)
 
@@ -54,18 +55,22 @@ Once all of the software requirements have been installed:
 1. Open visual studio code and press F1 to open the command palette search.
 
 2. Search for the Git: Clone command
-![alt text](./readme_resources/img/git_clone_vscode_command.png "The Git: Clone command from the vscode command palette.")
+
+    ![alt text](./readme_resources/img/git_clone_vscode_command.png "The Git: Clone command from the vscode command palette.")
+    
     If this doesn't show up, make sure you have the Azure Repos and Git Project Manager extensions installed
 
 3. Once selected, you'll be prompted to paste the repository url
-![alt text](./readme_resources/img/git_clone_url_vscode_command.png "The prompt from vscode to paste a repository URL")
+
+    ![alt text](./readme_resources/img/git_clone_url_vscode_command.png "The prompt from vscode to paste a repository URL")
 
 4. Paste the following URL: https://DASC-Group-1@dev.azure.com/DASC-Group-1/Wikipedia%20And%20Textbook%20Search%20Engine/_git/Wikipedia%20And%20Textbook%20Search%20Engine
 
 5. It will then ask you to select a folder to clone the repo's files to. Select where you want the files to be downloaded to.
 
 6. Once it's complete, vscode will reopen to the cloned directory. You can view the project's files in the file explorer. View the explorer by clicking the double-file icon at the top left of vscode:
-![alt text](./readme_resources/img/vscode_fileexplorer.png "The button for showing and hiding the file explorer in vscode.")
+
+    ![alt text](./readme_resources/img/vscode_fileexplorer.png "The button for showing and hiding the file explorer in vscode.")
 
 
 ## Committing changes
@@ -73,16 +78,20 @@ Once all of the software requirements have been installed:
 If you've made changes that you'd like to push to the branch, you'll want to open the source control window in vscode, add a commit comment, and commit then sync your changes.
 
 1. To open the source control window, click this button in vscode:
-![alt text](./readme_resources/img/vscode_sourcecontrolbutton.png "The button for showing and hiding the source control window in vscode.")
+
+    ![alt text](./readme_resources/img/vscode_sourcecontrolbutton.png "The button for showing and hiding the source control window in vscode.")
 
 2. Review the changes you've made in this window. Make sure nothing weird is going on- sometimes you'll see changes to files you don't expect. You can discard or ignore changes you don't want by right-clicking them and choosing to do so:
-![alt text](./readme_resources/img/vscode_discardchanges.png "How to discard changes in the visual studio code source control window.")
+
+    ![alt text](./readme_resources/img/vscode_discardchanges.png "How to discard changes in the visual studio code source control window.")
 
 3. Once you're happy with the changes to the files listed in the source control viewer, enter a commit message and click 'Commit':
-![alt text](./readme_resources/img/vscode_commit.png "Commit changes in vscode.")
+
+    ![alt text](./readme_resources/img/vscode_commit.png "Commit changes in vscode.")
 
 4. Once the changes are committed, sync the changes to the repo in git:
-![alt text](./readme_resources/img/vscode_sync.png "Sync commits to git server.")
+
+    ![alt text](./readme_resources/img/vscode_sync.png "Sync commits to git server.")
 
 5. Your commits should now be synced up to the repository!
 
