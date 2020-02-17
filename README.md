@@ -49,19 +49,54 @@ In order to compile and execute these projects, you'll need to install the follo
 
 ## Cloning the repo
 
-- Coming soon!
+Once all of the software requirements have been installed:
 
+1. Open visual studio code and press F1 to open the command palette search.
+
+2. Search for the Git: Clone command
+![alt text](./readme_resources/img/git_clone_vscode_command.png "The Git: Clone command from the vscode command palette.")
+    If this doesn't show up, make sure you have the Azure Repos and Git Project Manager extensions installed
+
+3. Once selected, you'll be prompted to paste the repository url
+![alt text](./readme_resources/img/git_clone_url_vscode_command.png "The prompt from vscode to paste a repository URL")
+
+4. Paste the following URL: https://DASC-Group-1@dev.azure.com/DASC-Group-1/Wikipedia%20And%20Textbook%20Search%20Engine/_git/Wikipedia%20And%20Textbook%20Search%20Engine
+
+5. It will then ask you to select a folder to clone the repo's files to. Select where you want the files to be downloaded to.
+
+6. Once it's complete, vscode will reopen to the cloned directory. You can view the project's files in the file explorer. View the explorer by clicking the double-file icon at the top left of vscode:
+![alt text](./readme_resources/img/vscode_fileexplorer.png "The button for showing and hiding the file explorer in vscode.")
+
+
+## Committing changes
+
+If you've made changes that you'd like to push to the branch, you'll want to open the source control window in vscode, add a commit comment, and commit then sync your changes.
+
+1. To open the source control window, click this button in vscode:
+![alt text](./readme_resources/img/vscode_sourcecontrolbutton.png "The button for showing and hiding the source control window in vscode.")
+
+2. Review the changes you've made in this window. Make sure nothing weird is going on- sometimes you'll see changes to files you don't expect. You can discard or ignore changes you don't want by right-clicking them and choosing to do so:
+![alt text](./readme_resources/img/vscode_discardchanges.png "How to discard changes in the visual studio code source control window.")
+
+3. Once you're happy with the changes to the files listed in the source control viewer, enter a commit message and click 'Commit':
+![alt text](./readme_resources/img/vscode_commit.png "How to discard changes in the visual studio code source control window.")
 
 # Changelog
 
 - 20200130: Create the repo, angular web app, and some python examples from a tutorial
     - Python tutorial: https://code.visualstudio.com/docs/python/python-tutorial
+- 20200217: 
+    - Added requirements.txt file for installing necessary python packages
+    - Added .gitignore and modified it so the .venv and node_modules folders are ignored by source control
+        - This is so the hundreds of files from each are left out of our checkins
+        - Our checkin should strictly be dealing with code. Changes to packages should be noted in the requirements.txt file for python and package.json for angular
+    - Added Cloning the repo and Committing changes sections to the readme
 
 
 # TODO List
 
 - Pick a name for this project
-- Create a python project for accessing Wikipedia APIs
-- Create a python project for performing the queries/search algorithms on the wikipedia API results
-- Install bootstrap on the web app
-- Create a proof of concept search and report UI
+    - Forming a brand is the most important part of product development!
+- Create a use-case diagram of the software being built
+- Implement Feature: Upload and scan PDF file
+- Implement Feature: Generate report
