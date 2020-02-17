@@ -79,7 +79,12 @@ If you've made changes that you'd like to push to the branch, you'll want to ope
 ![alt text](./readme_resources/img/vscode_discardchanges.png "How to discard changes in the visual studio code source control window.")
 
 3. Once you're happy with the changes to the files listed in the source control viewer, enter a commit message and click 'Commit':
-![alt text](./readme_resources/img/vscode_commit.png "How to discard changes in the visual studio code source control window.")
+![alt text](./readme_resources/img/vscode_commit.png "Commit changes in vscode.")
+
+4. Once the changes are committed, sync the changes to the repo in git:
+![alt text](./readme_resources/img/vscode_sync.png "Sync commits to git server.")
+
+5. Your commits should now be synced up to the repository!
 
 # Changelog
 
