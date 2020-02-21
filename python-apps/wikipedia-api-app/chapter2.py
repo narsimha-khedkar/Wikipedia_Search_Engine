@@ -1,9 +1,17 @@
 import nltk
 from nltk.tokenize import sent_tokenize, word_tokenize 
 from nltk.stem import PorterStemmer, LancasterStemmer
+import wikipedia 
 
-#Will Work on adding text via Wikipedia
-text = 'She sell sea shells by the sea shore. Humpty Dumpty sat on a wall.'
+#Search
+results = wikipedia.search('Facebook')
+
+#Get first article from results
+article = results[0]
+
+#Get text of article
+text = wikipedia.summary(article)
+#text = wikipedia.page(article).content
 
 sentences = sent_tokenize(text)
 words = word_tokenize(text)
