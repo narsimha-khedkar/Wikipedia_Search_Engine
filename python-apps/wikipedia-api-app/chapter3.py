@@ -17,7 +17,7 @@ distance('Levenshtein', 'Lenvinsten')
 from fuzzywuzzy import process
 
 with open("570.txt","r") as file:
-    terms = file.read().split("\n")
+    terms = file.read().split(" ")
     #terms = file.read().split(" ")
 
 total = len(terms)
