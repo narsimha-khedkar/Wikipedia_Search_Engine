@@ -3,10 +3,11 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SearchPageComponent } from './search-page/search-page.component';
-import { QueryReportComponent } from './query-report/query-report.component';
+import { SearchPageComponent } from './components/search-page/search-page.component';
+import { QueryReportComponent } from './components/query-report/query-report.component';
 import { ReactiveFormsModule } from '@angular/forms'
 import { HttpClientModule } from '@angular/common/http';
+import { FileUploadService } from './services/file-upload.service';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,7 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [FileUploadService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

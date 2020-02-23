@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { debounceTime, tap, filter } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
+import { FileUploadService } from 'src/app/services/file-upload.service';
 
 @Component({
   selector: 'app-search-page',
@@ -12,14 +13,17 @@ export class SearchPageComponent implements OnInit {
   searchForm: FormGroup;
   queryResults: any;
 
-  constructor(private _fb: FormBuilder, private _httpClient: HttpClient) { }
+  constructor(
+    private _fb: FormBuilder, 
+    private _httpClient: HttpClient,
+    private _fileUploadService: FileUploadService) { }
 
   ngOnInit() {
     this.searchForm = this._fb.group({
       searchBox: ''
-    })
+    });
 
-    let queryResult$ = this.searchForm.controls['searchBox'].valueChanges
+    const queryResult$ = this.searchForm.controls['searchBox'].valueChanges
       .pipe(
         filter(queryText => queryText.length >= 3),
         debounceTime(500),
@@ -27,21 +31,29 @@ export class SearchPageComponent implements OnInit {
       );
 
     queryResult$.subscribe(finalQueryText => {
-      let apiResult$ = this._httpClient.get(`http://127.0.0.1:5002/query/${finalQueryText}`);
+      const apiResult$ = this._httpClient.get(`http://127.0.0.1:5002/query/${finalQueryText}`);
       apiResult$.subscribe(data => {
         console.log(data);
         this.queryResults = data;
-      });  
-    })
+      });
+    });
   }
 
   articleClicked(articleName: string): any {
     console.log('article clicked!', articleName);
     const articleWithoutSpaces = articleName.replace('%20', ' ');
-    let apiResult$ = this._httpClient.get(`http://127.0.0.1:5002/getArticle/${articleName}`);
+    const apiResult$ = this._httpClient.get(`http://127.0.0.1:5002/getArticle/${articleName}`);
 
     apiResult$.subscribe(data => {
       console.log('getArticle response:', data);
-    })
+    });
+  }
+
+  handleFileInput(files: FileList) {
+    console.log('SearchPageComponent.handleFileInput called, filelist data:', files);
+
+    this._fileUploadService.postFile(files[0]).pipe(
+      tap(streamData => console.log('SearchPageComponent.handleFileInput postFile service call returned data:', streamData))
+    ).subscribe((data) => console.log('SearchPageComponent.handleFileInput postFile service call subscription returned data', data));
   }
 }
