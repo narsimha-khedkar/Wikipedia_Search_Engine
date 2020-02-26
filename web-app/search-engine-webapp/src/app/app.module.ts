@@ -8,6 +8,8 @@ import { QueryReportComponent } from './components/query-report/query-report.com
 import { ReactiveFormsModule } from '@angular/forms'
 import { HttpClientModule } from '@angular/common/http';
 import { FileUploadService } from './services/file-upload.service';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 
 @NgModule({
   declarations: [
@@ -19,7 +21,8 @@ import { FileUploadService } from './services/file-upload.service';
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FontAwesomeModule
   ],
   providers: [FileUploadService],
   bootstrap: [AppComponent]

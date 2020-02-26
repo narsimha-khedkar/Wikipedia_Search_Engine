@@ -38,19 +38,34 @@
                                 </div>
                                 <input formControlName="searchBox" type="text" class="form-control" placeholder="Enter search terms" aria-label="Search" aria-describedby="searchbox-label">
                             </div>
+                            <ul class="list-group list-group-flush" *ngFor="let queryResult of queryResults">
+                                <li class="list-group-item queryResult">
+                                    <a href="#" (click)="articleClicked(queryResult)">{{ queryResult }}</a>
+                                    <button type="button" class="btn btn-primary btn-sm" (click)="articleSelected(queryResult)">
+                                        Select <fa-icon [icon]="faHandPointRight"></fa-icon>
+                                    </button>
+                                </li>
+                            </ul>
                         </div>
                         <div class="col-md-4">
-                            <div class="input-group">
+                            <div class="input-group mb-3">
                                 <div class="custom-file">
                                     <input type="file" class="custom-file-input" id="inputGroupFile01" (change)="handleFileInput($event.target.files)">
-                                    <label class="custom-file-label" for="inputGroupFile01">Select a PDF...</label>
+                                    <label *ngIf="selectedFile == null" class="custom-file-label" for="inputGroupFile01">Select a PDF...</label>
+                                    <label *ngIf="!!selectedFile" class="custom-file-label" for="inputGroupFile01">{{ selectedFile.name}} </label>
                                 </div>
                             </div>
+                            <ul class="list-group list-group-flush" *ngFor="let selectedQueryResult of selectedQueryResults">
+                                <li class="list-group-item queryResult">
+                                    <a href="#" (click)="articleClicked(selectedQueryResult)">{{ selectedQueryResult }}</a>
+                                    <button type="button" class="btn btn-danger btn-sm">
+                                        <fa-icon  [icon]="faTimesCircle"></fa-icon>
+                                    </button>
+                                </li>
+                            </ul>
                         </div>
                         <div class="col-md-12" *ngIf="!!queryResults">
-                            <ul class="list-group list-group-flush" *ngFor="let queryResult of queryResults">
-                                <li class="list-group-item"><a href="#" (click)="articleClicked(queryResult)">{{ queryResult }}</a></li>
-                            </ul>
+                            
                         </div>
                     </div>
                 </div>

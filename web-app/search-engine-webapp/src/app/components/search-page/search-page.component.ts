@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { debounceTime, tap, filter } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { FileUploadService } from 'src/app/services/file-upload.service';
+import { faHandPointRight, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-search-page',
@@ -12,6 +13,11 @@ import { FileUploadService } from 'src/app/services/file-upload.service';
 export class SearchPageComponent implements OnInit {
   searchForm: FormGroup;
   queryResults: any;
+  selectedQueryResults = [];
+  selectedFile: File;
+
+  faHandPointRight = faHandPointRight;
+  faTimesCircle = faTimesCircle;
 
   constructor(
     private _fb: FormBuilder, 
@@ -44,16 +50,27 @@ export class SearchPageComponent implements OnInit {
     const articleWithoutSpaces = articleName.replace('%20', ' ');
     const apiResult$ = this._httpClient.get(`http://127.0.0.1:5002/getArticle/${articleName}`);
 
-    apiResult$.subscribe(data => {
+    apiResult$.subscribe((data: any) => {
       console.log('getArticle response:', data);
+      window.open(data.url, '_blank');
     });
+  }
+
+  articleSelected(articleName: string): any {
+    console.log('article selected', articleName, this.queryResults);
+    this.selectedQueryResults.push(articleName);
+    this.queryResults = this.queryResults.filter(r => r !== articleName);
   }
 
   handleFileInput(files: FileList) {
     console.log('SearchPageComponent.handleFileInput called, filelist data:', files);
+    this.selectedFile = files[0];
+  }
 
-    this._fileUploadService.postFile(files[0]).pipe(
-      tap(streamData => console.log('SearchPageComponent.handleFileInput postFile service call returned data:', streamData))
-    ).subscribe((data) => console.log('SearchPageComponent.handleFileInput postFile service call subscription returned data', data));
+  uploadFile() {
+    this._fileUploadService.postFile(this.selectedFile)
+      .pipe(
+        tap(streamData => console.log('SearchPageComponent.handleFileInput postFile service call returned data:', streamData)))
+      .subscribe((data) => console.log('SearchPageComponent.handleFileInput postFile service call subscription returned data', data));
   }
 }
