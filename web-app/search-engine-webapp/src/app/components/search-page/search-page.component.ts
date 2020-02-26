@@ -83,4 +83,12 @@ export class SearchPageComponent implements OnInit {
   goToTab(tabNumber: number) {
     this.activeTab = tabNumber;
   }
+
+  startOver() {
+    this.activeTab = 1;
+    this.selectedFile = null;
+    this.queryResults.length = 0;
+    this.selectedQueryResults.length = 0;
+    this.searchForm.controls['searchBox'].setValue('');
+  }
 }
