@@ -11,3 +11,18 @@
     justify-content: space-between;
     align-items: center;   
 }
+
+.start-query-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    button:disabled {
+        cursor: not-allowed;
+    }
+}
+
+.body-card {
+    border-top: none;
+    border-radius: 0;
+}

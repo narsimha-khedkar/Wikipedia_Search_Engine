@@ -11,6 +11,8 @@ import { faHandPointRight, faTimesCircle } from '@fortawesome/free-solid-svg-ico
   styleUrls: ['./search-page.component.scss']
 })
 export class SearchPageComponent implements OnInit {
+  activeTab = 1;
+
   searchForm: FormGroup;
   queryResults: any;
   selectedQueryResults = [];
@@ -62,6 +64,10 @@ export class SearchPageComponent implements OnInit {
     this.queryResults = this.queryResults.filter(r => r !== articleName);
   }
 
+  removeSelectedQueryResult(selectedQueryResult: string): any {
+    this.selectedQueryResults = this.selectedQueryResults.filter(r => r !== selectedQueryResult);
+  }
+
   handleFileInput(files: FileList) {
     console.log('SearchPageComponent.handleFileInput called, filelist data:', files);
     this.selectedFile = files[0];
@@ -72,5 +78,9 @@ export class SearchPageComponent implements OnInit {
       .pipe(
         tap(streamData => console.log('SearchPageComponent.handleFileInput postFile service call returned data:', streamData)))
       .subscribe((data) => console.log('SearchPageComponent.handleFileInput postFile service call subscription returned data', data));
+  }
+
+  goToTab(tabNumber: number) {
+    this.activeTab = tabNumber;
   }
 }

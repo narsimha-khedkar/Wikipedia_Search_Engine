@@ -22,12 +22,28 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <div class="card">
-                <div class="card-body">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" (click)="goToTab(1)" [class.active]="activeTab == 1" href="#">1. Provide your data.</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" (click)="goToTab(2)" [class.active]="activeTab == 2" [class.disabled]="activeTab < 2" href="#">2. Enter your query.</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" [class.active]="activeTab == 3" [class.disabled]="activeTab < 3" href="#">3. View the report.</a>
+                </li>
+            </ul>
+            <div class="card body-card">
+                <div class="card-body" *ngIf="activeTab == 1">
                     <div class="row">
-                        <div class="col">
+                        <div class="col-md-8">
                             <h2>Welcome to TabrEZ Search!</h2>
                             <p>Upload a textbook (in PDF format) to begin searching it, or enter search terms to query Wikipedia.</p>
+                        </div>
+                        <div class="col-md-4 start-query-container">
+                            <button type="button" class="btn btn-danger btn-sm" [disabled]="selectedFile == null && selectedQueryResults.length == 0" (click)="goToTab(2)">
+                                Begin Query
+                            </button>
                         </div>
                     </div>
                     <div class="row">
@@ -42,7 +58,7 @@
                                 <li class="list-group-item queryResult">
                                     <a href="#" (click)="articleClicked(queryResult)">{{ queryResult }}</a>
                                     <button type="button" class="btn btn-primary btn-sm" (click)="articleSelected(queryResult)">
-                                        Select <fa-icon [icon]="faHandPointRight"></fa-icon>
+                                        Add To Query <fa-icon [icon]="faHandPointRight"></fa-icon>
                                     </button>
                                 </li>
                             </ul>
@@ -58,7 +74,7 @@
                             <ul class="list-group list-group-flush" *ngFor="let selectedQueryResult of selectedQueryResults">
                                 <li class="list-group-item queryResult">
                                     <a href="#" (click)="articleClicked(selectedQueryResult)">{{ selectedQueryResult }}</a>
-                                    <button type="button" class="btn btn-danger btn-sm">
+                                    <button type="button" class="btn btn-danger btn-sm" (click)="removeSelectedQueryResult(selectedQueryResult)">
                                         <fa-icon  [icon]="faTimesCircle"></fa-icon>
                                     </button>
                                 </li>
@@ -66,6 +82,32 @@
                         </div>
                         <div class="col-md-12" *ngIf="!!queryResults">
                             
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body" *ngIf="activeTab == 2">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h2>Enter your query.</h2>
+                            <p>Enter the question, phrase, subjects, and/or terms you'd like to query from your dataset and include in your report.</p>
+                        </div>
+                        <div class="col-md-4 start-query-container">
+                            <button type="button" class="btn btn-danger btn-sm" (click)="goToTab(3)">
+                                Generate Report.
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body" *ngIf="activeTab == 3">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h2>View your report.</h2>
+                            <p>Below is the report generated from your query.</p>
+                        </div>
+                        <div class="col-md-4 start-query-container">
+                            <button type="button" class="btn btn-danger btn-sm">
+                                Start over
+                            </button>
                         </div>
                     </div>
                 </div>
