@@ -9,6 +9,13 @@ import sys
 from pdfminer.high_level import extract_text
 from werkzeug import secure_filename
 import os
+import nltk
+from nltk.tokenize import sent_tokenize
+from nltk.stem.snowball import EnglishStemmer
+from collections import defaultdict
+from invertedIndex import InvertedIndex
+
+import string
 
 app = Flask(__name__)
 CORS(app)
@@ -57,9 +64,24 @@ def uploadpdf():
             fileName = secure_filename(file.filename)
             file.save(fileName)
 
+            # extract and sanitize the text
+            # this takes forever for textbook files!! we should probably think about storing the text somehow
             text = extract_text(fileName)
-
             os.remove(fileName)
+
+            text = text.replace('\n','').replace('\r','').lower()
+            transTable = [string.punctuation,""]
+            sanitizedText = text.translate(transTable)
+            sentences = nltk.sent_tokenize(sanitizedText)
+            words = nltk.word_tokenize(sanitizedText)
+            
+            index = InvertedIndex(nltk.word_tokenize, EnglishStemmer(), nltk.corpus.stopwords.words('english'))
+            
+            for sentence in [s for s in sentences]:
+                index.add(sentence)
+
+            # testing out how we could perform the query on the text. the nltk is going to be super useful in this space
+            testQueryResult = index.lookup('inverted')
 
             return MyEncoder().encode("File received on API server.")
         except Exception as e:
