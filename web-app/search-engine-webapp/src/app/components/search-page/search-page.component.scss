@@ -1,0 +1,34 @@
+.logo {
+    font-family: 'Girassol', cursive;
+    background-color: mediumpurple;
+    color: white;
+    padding: 5px;
+    box-shadow: 2px 2px black;
+}
+
+.queryResult {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;   
+}
+
+.start-query-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    button:disabled {
+        cursor: not-allowed;
+    }
+}
+
+.body-card {
+    border-top: none;
+    border-radius: 0;
+}
+
+.wikiQueryingPane {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

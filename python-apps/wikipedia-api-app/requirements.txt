@@ -15,7 +15,9 @@ idna==2.8
 itsdangerous==1.1.0
 Jinja2==2.11.1
 MarkupSafe==1.1.1
+pdfminer==20191125
 pipenv==2018.11.26
+pycryptodome==3.9.7
 pytz==2019.3
 requests==2.22.0
 six==1.14.0

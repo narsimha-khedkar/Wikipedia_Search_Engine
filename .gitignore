@@ -1,3 +1,6 @@
 .venv
 web-app/node_modules
 web-app/search-engine-webapp/node_modules
+.vscode
+.*venv/
+.*vscode/
