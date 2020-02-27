@@ -6,6 +6,8 @@ from flask_jsonpify import jsonify, jsonpify
 from flask_cors import CORS
 import wikipedia
 import sys
+from pdfminer.high_level import extract_text
+from werkzeug import secure_filename
 
 app = Flask(__name__)
 CORS(app)
@@ -24,15 +26,8 @@ class PerformQuery(Resource):
         results = wikipedia.search(queryString)
         return results
 
-# class GetArticle(Resource):
-#     def get(self, articleName):
-#         article =  wikipedia.page(articleName)
-#         encodedArticle = MyEncoder().encode(article)
-#         return encodedArticle
-
 # GET routes
 api.add_resource(PerformQuery, '/query/<queryString>')
-# api.add_resource(GetArticle, '/getArticle/<articleName>')
 
 @app.route('/getArticle/<string:articleName>', methods=['GET'])
 def get_article(articleName):
@@ -58,6 +53,13 @@ def uploadpdf():
     if request.method == 'POST':
         try:
             file = request.files['fileKey']
+            fileName = secure_filename(file.filename)
+            file.save(fileName)
+
+            text = extract_text(fileName)
+
+            file.delete(fileName)
+
             return MyEncoder().encode("File received on API server.")
         except Exception as e:
             print("Unexpected error", e)
