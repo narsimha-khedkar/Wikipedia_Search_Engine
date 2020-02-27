@@ -8,6 +8,7 @@ import wikipedia
 import sys
 from pdfminer.high_level import extract_text
 from werkzeug import secure_filename
+import os
 
 app = Flask(__name__)
 CORS(app)
@@ -58,7 +59,7 @@ def uploadpdf():
 
             text = extract_text(fileName)
 
-            file.delete(fileName)
+            os.remove(fileName)
 
             return MyEncoder().encode("File received on API server.")
         except Exception as e:
