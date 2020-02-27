@@ -12,6 +12,8 @@ import { faHandPointRight, faTimesCircle } from '@fortawesome/free-solid-svg-ico
 })
 export class SearchPageComponent implements OnInit {
   activeTab = 1;
+  uploading = false;
+  queryingWikipedia = false;
 
   searchForm: FormGroup;
   queryResults: any;
@@ -35,7 +37,12 @@ export class SearchPageComponent implements OnInit {
       .pipe(
         filter(queryText => queryText.length >= 3),
         debounceTime(500),
-        tap(queryText => console.log(queryText))
+        tap(() => {
+          if (!!this.queryResults)
+            this.queryResults.length = 0;
+
+          this.queryingWikipedia = true;
+        })
       );
 
     queryResult$.subscribe(finalQueryText => {
@@ -43,6 +50,7 @@ export class SearchPageComponent implements OnInit {
       apiResult$.subscribe(data => {
         console.log(data);
         this.queryResults = data;
+        this.queryingWikipedia = false;
       });
     });
   }
@@ -73,11 +81,21 @@ export class SearchPageComponent implements OnInit {
     this.selectedFile = files[0];
   }
 
-  uploadFile() {
-    this._fileUploadService.postFile(this.selectedFile)
-      .pipe(
-        tap(streamData => console.log('SearchPageComponent.handleFileInput postFile service call returned data:', streamData)))
-      .subscribe((data) => console.log('SearchPageComponent.handleFileInput postFile service call subscription returned data', data));
+  startDataQuerySection() {
+    if (!!this.selectedFile) {
+      this.uploading = true;
+    
+      const postFile$ = this._fileUploadService.postFile(this.selectedFile);
+  
+      postFile$.subscribe((data) => {
+        console.log('SearchPageComponent.handleFileInput postFile service call subscription returned data', data)
+        this.goToTab(2);
+        this.uploading = false;
+      });
+    }
+    else {
+      this.goToTab(2);
+    }
   }
 
   goToTab(tabNumber: number) {

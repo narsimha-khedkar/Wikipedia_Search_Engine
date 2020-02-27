@@ -58,8 +58,7 @@ def uploadpdf():
     if request.method == 'POST':
         try:
             file = request.files['fileKey']
-            encodedFileData = MyEncoder().encode(file)
-            return encodedFileData
+            return MyEncoder().encode("File received on API server.")
         except Exception as e:
             print("Unexpected error", e)
             return e

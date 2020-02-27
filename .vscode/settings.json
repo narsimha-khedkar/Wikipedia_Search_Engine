@@ -1,5 +1,5 @@
 {
-    "python.pythonPath": "C:\\Users\\3121535\\AppData\\Local\\Programs\\Python\\Python38-32\\python.exe",
+    "python.pythonPath": ".venv\\Scripts\\python.exe",
     "team.remoteUrl": "https://dev.azure.com/DASC-Group-1/Wikipedia%20And%20Textbook%20Search%20Engine",
     "team.teamProject": "Wikipedia And Textbook Search Engine",
     "team.showWelcomeMessage": false
