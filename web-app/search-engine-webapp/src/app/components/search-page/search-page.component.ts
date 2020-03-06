@@ -19,7 +19,7 @@ export class SearchPageComponent implements OnInit {
   queryResults: any;
   selectedQueryResults = [];
   selectedFile: File;
-  articleData = [];
+  articleData = "";
 
   faHandPointRight = faHandPointRight;
   faTimesCircle = faTimesCircle;
@@ -85,20 +85,20 @@ export class SearchPageComponent implements OnInit {
   startDataQuerySection() {
     var search = this;
     var articles = this.selectedQueryResults;
+    var articleData = this.articleData;
+
     console.log('Articles Selected', articles);
     articles.forEach(function (value) {
       console.log('Retrieving Content for:', value);
       const apiResult$ = search._httpClient.get(`http://127.0.0.1:5002/getArticleData/${value}`);
 
       apiResult$.subscribe((data: any) => {
-        console.log('getArticleData response:', data);
+        articleData = articleData + data.toString();
+        console.log('Article(s) Data:', articleData);
       });
-  
+
     });
-    
-    var articleData = this.articleData;
-    console.log('Article(s) Data', articleData);
-    
+
 
     if (!!this.selectedFile) {
       this.uploading = true;
