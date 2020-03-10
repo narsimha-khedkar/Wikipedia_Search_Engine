@@ -31,7 +31,8 @@ export class SearchPageComponent implements OnInit {
 
   ngOnInit() {
     this.searchForm = this._fb.group({
-      searchBox: ''
+      searchBox: '',
+      reportQueryText: ''
     });
 
     const queryResult$ = this.searchForm.controls['searchBox'].valueChanges
@@ -83,37 +84,71 @@ export class SearchPageComponent implements OnInit {
   }
 
   startDataQuerySection() {
-    var search = this;
-    var articles = this.selectedQueryResults;
+    const search = this;
+    const articles = this.selectedQueryResults;
+    let articleRetrievedIndex = 0;
+    this.uploading = true;
     console.log('Articles Selected', articles);
-    articles.forEach(function (value) {
+    articles.forEach((value) => {
       console.log('Retrieving Content for:', value);
       const apiResult$ = search._httpClient.get(`http://127.0.0.1:5002/getArticleData/${value}`);
 
       apiResult$.subscribe((data: any) => {
         console.log('getArticleData response:', data);
+        articleData.push(data);
+        articleRetrievedIndex++;
+
+        if (articleRetrievedIndex == this.selectedQueryResults.length) {
+          this.uploading = false;
+          this.goToTab(2);
+        }
       });
-  
     });
-    
-    var articleData = this.articleData;
+
+    const articleData = this.articleData;
     console.log('Article(s) Data', articleData);
-    
+
+    // if (!!this.selectedFile) {
+    //   this.uploading = true;
+
+      const postFile$ = this._fileUploadService.postFile(this.selectedFile);
+
+    //   postFile$.subscribe((data) => {
+    //     console.log('SearchPageComponent.handleFileInput postFile service call subscription returned data', data);
+    //     this.goToTab(2);
+    //     this.uploading = false;
+    //   });
+    // } else {
+    //   this.goToTab(2);
+    // }
+  }
+
+  performQuery() {
+    const endpoint = 'http://127.0.0.1:5002/generatereport';
+    const queryData = new FormData();
 
     if (!!this.selectedFile) {
-      this.uploading = true;
-    
-      const postFile$ = this._fileUploadService.postFile(this.selectedFile);
-  
-      postFile$.subscribe((data) => {
-        console.log('SearchPageComponent.handleFileInput postFile service call subscription returned data', data)
-        this.goToTab(2);
-        this.uploading = false;
-      });
+      queryData.append('pdfFile', this.selectedFile, this.selectedFile.name);
     }
-    else {
-      this.goToTab(2);
+
+    if (!!this.articleData) {
+      const encodedArticleData = JSON.stringify(this.articleData);
+
+      console.log('encodedArticleData', encodedArticleData);
+
+      queryData.append('articleData', encodedArticleData);
     }
+
+    if (!!this.searchForm.controls.reportQueryText.value) {
+      queryData.append('queryString', this.searchForm.controls.reportQueryText.value);
+    }
+
+    const apiResult$ = this._httpClient.post(endpoint, queryData, { headers: {} });
+
+    apiResult$.subscribe(response => {
+      console.log('performQuery POST API response', response);
+    });
+
   }
 
   goToTab(tabNumber: number) {
@@ -124,6 +159,7 @@ export class SearchPageComponent implements OnInit {
     this.activeTab = 1;
     this.selectedFile = null;
     this.queryResults.length = 0;
+    this.articleData.length = 0;
     this.selectedQueryResults.length = 0;
     this.searchForm.controls['searchBox'].setValue('');
   }

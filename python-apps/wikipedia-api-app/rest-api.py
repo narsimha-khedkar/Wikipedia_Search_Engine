@@ -74,11 +74,14 @@ def get_article_data(articleName):
             return e
 
 # POST routes
-@app.route('/uploadpdf', methods=['POST'])
-def uploadpdf():
+@app.route('/generatereport', methods=['POST'])
+def generatereport():
     if request.method == 'POST':
         try:
-            file = request.files['fileKey']
+            articleData = request.form['articleData']
+            queryString = request.form['queryString']
+
+            file = request.files['pdfFile']
             fileName = secure_filename(file.filename)
             file.save(fileName)
 
