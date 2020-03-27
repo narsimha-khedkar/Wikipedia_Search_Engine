@@ -9,12 +9,15 @@ import { ReactiveFormsModule } from '@angular/forms'
 import { HttpClientModule } from '@angular/common/http';
 import { FileUploadService } from './services/file-upload.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { SelectedArticleComponent } from './components/search-page/components/selected-article/selected-article.component';
+import { ArticleService } from './services/article.service';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     SearchPageComponent,
+    SelectedArticleComponent,
     QueryReportComponent
   ],
   imports: [
@@ -24,7 +27,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     ReactiveFormsModule,
     FontAwesomeModule
   ],
-  providers: [FileUploadService],
+  providers: [FileUploadService, ArticleService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -80,12 +80,7 @@
                                 </div>
                             </div>
                             <ul class="list-group list-group-flush" *ngFor="let selectedQueryResult of selectedQueryResults">
-                                <li class="list-group-item queryResult">
-                                    <a href="#" (click)="articleClicked(selectedQueryResult)">{{ selectedQueryResult }}</a>
-                                    <button type="button" class="btn btn-danger btn-sm" (click)="removeSelectedQueryResult(selectedQueryResult)">
-                                        <fa-icon  [icon]="faTimesCircle"></fa-icon>
-                                    </button>
-                                </li>
+                                <app-selected-article class="queryResult" [articleName]="selectedQueryResult" (removeClicked)="removeSelectedQueryResult($event)"></app-selected-article>
                             </ul>
                         </div>
                         <div class="col-md-12" *ngIf="!!queryResults">
@@ -100,9 +95,19 @@
                             <p>Enter the question, phrase, subjects, and/or terms you'd like to query from your dataset and include in your report.</p>
                         </div>
                         <div class="col-md-4 start-query-container">
-                            <button type="button" class="btn btn-danger btn-sm" (click)="goToTab(3)">
+                            <button type="button" class="btn btn-danger btn-sm" (click)="performQuery()">
                                 Generate Report.
                             </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">With textarea</span>
+                                </div>
+                                <textarea class="form-control" formControlName="reportQueryText" aria-label="With textarea"></textarea>
+                            </div>
                         </div>
                     </div>
                 </div>
