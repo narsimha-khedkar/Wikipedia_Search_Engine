@@ -59,14 +59,14 @@ def get_article(articleName):
 def get_article_data(articleName):
     if request.method == 'GET':
         try:
-            article =  wikipedia.page(articleName)
+            article =  wikipedia.page(articleName).content
             encodedArticle = MyEncoder().encode(article)
             return encodedArticle
         except wikipedia.DisambiguationError as e:
             # occurs when the wikipedia search returns a disambiguation page (a page with a list of multiple related articles)
             # capture this, then return one of them. Might offer some special functionality later on to allow the user to choose
             firstOption = e.options[0]
-            nonAmbiguationArticle = wikipedia.page(firstOption)
+            nonAmbiguationArticle = wikipedia.page(firstOption).content
             encodedArticle = MyEncoder().encode(nonAmbiguationArticle)
             return encodedArticle
         except Exception as e:

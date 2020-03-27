@@ -19,7 +19,7 @@ export class SearchPageComponent implements OnInit {
   queryResults: any;
   selectedQueryResults = [];
   selectedFile: File;
-  articleData = [];
+  articleData = "";
 
   faHandPointRight = faHandPointRight;
   faTimesCircle = faTimesCircle;
@@ -95,7 +95,7 @@ export class SearchPageComponent implements OnInit {
 
       apiResult$.subscribe((data: any) => {
         console.log('getArticleData response:', data);
-        articleData.push(data);
+        this.articleData = data;
         articleRetrievedIndex++;
 
         if (articleRetrievedIndex == this.selectedQueryResults.length) {
@@ -159,7 +159,7 @@ export class SearchPageComponent implements OnInit {
     this.activeTab = 1;
     this.selectedFile = null;
     this.queryResults.length = 0;
-    this.articleData.length = 0;
+    this.articleData = '';
     this.selectedQueryResults.length = 0;
     this.searchForm.controls['searchBox'].setValue('');
   }
