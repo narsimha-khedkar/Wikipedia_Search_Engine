@@ -1,0 +1,52 @@
+<div class="row">
+    <div class="col-md-8">
+        <h2>Welcome to TabrEZ Search!</h2>
+        <p>Upload a textbook (in PDF format) to begin searching it, or enter search terms to query Wikipedia.</p>
+    </div>
+    <div class="col-md-4 start-query-container">
+        <button type="button" class="btn btn-danger btn-sm" [disabled]="uploading || (selectedFile == null && selectedQueryResults.length == 0)" (click)="startDataQuerySection()">
+            {{ uploading == false ? 'Begin Query' : 'Uploading file...' }} <span *ngIf="uploading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        </button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-8">
+        <div class="input-group mb-3">
+
+            <div class="input-group-prepend">
+            <span class="input-group-text" id="searchbox-label">Search</span>
+            </div>
+            <input formControlName="searchBox" type="text" class="form-control" placeholder="Enter search terms" aria-label="Search" aria-describedby="searchbox-label">
+        </div>
+        <ul *ngIf="queryingWikipedia" class="list-group list-group-flush">
+            <li  class="list-group-item wikiQueryingPane">
+                <div class="spinner-grow" style="width: 3rem; height: 3rem;" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </li>
+        </ul>
+        <ul class="list-group list-group-flush" *ngFor="let queryResult of queryResults">
+            <li class="list-group-item queryResult">
+                <a href="#" (click)="articleClicked(queryResult)">{{ queryResult }}</a>
+                <button type="button" class="btn btn-primary btn-sm" (click)="articleSelected(queryResult)">
+                    Add To Query <fa-icon [icon]="faHandPointRight"></fa-icon>
+                </button>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-4">
+        <div class="input-group mb-3">
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="inputGroupFile01" (change)="handleFileInput($event.target.files)">
+                <label *ngIf="selectedFile == null" class="custom-file-label" for="inputGroupFile01">Select a PDF...</label>
+                <label *ngIf="!!selectedFile" class="custom-file-label" for="inputGroupFile01">{{ selectedFile.name}} </label>
+            </div>
+        </div>
+        <ul class="list-group list-group-flush" *ngFor="let selectedQueryResult of selectedQueryResults">
+            <app-selected-article class="queryResult" [articleName]="selectedQueryResult" (removeClicked)="removeSelectedQueryResult($event)"></app-selected-article>
+        </ul>
+    </div>
+    <div class="col-md-12" *ngIf="!!queryResults">
+        
+    </div>
+</div>
