@@ -19,7 +19,8 @@ export class SearchPageComponent implements OnInit {
   queryResults: any;
   selectedQueryResults = [];
   selectedFile: File;
-  articleData = "";
+  articleData = [];
+  returnedQuerySentences: any;
 
   faHandPointRight = faHandPointRight;
   faTimesCircle = faTimesCircle;
@@ -89,38 +90,29 @@ export class SearchPageComponent implements OnInit {
     let articleRetrievedIndex = 0;
     this.uploading = true;
     console.log('Articles Selected', articles);
-    articles.forEach((value) => {
-      console.log('Retrieving Content for:', value);
-      const apiResult$ = search._httpClient.get(`http://127.0.0.1:5002/getArticleData/${value}`);
 
-      apiResult$.subscribe((data: any) => {
-        console.log('getArticleData response:', data);
-        this.articleData = data;
-        articleRetrievedIndex++;
+    if (articles.length > 0) {
+      articles.forEach((value) => {
+        console.log('Retrieving Content for:', value);
+        const apiResult$ = search._httpClient.get(`http://127.0.0.1:5002/getArticleData/${value}`);
 
-        if (articleRetrievedIndex == this.selectedQueryResults.length) {
-          this.uploading = false;
-          this.goToTab(2);
-        }
+        apiResult$.subscribe((data: any) => {
+          console.log('getArticleData response:', data);
+          this.articleData.push(data);
+          articleRetrievedIndex++;
+
+          if (articleRetrievedIndex == this.selectedQueryResults.length) {
+            this.uploading = false;
+            this.goToTab(2);
+
+            console.log('Article(s) Data', this.articleData);
+          }
+        });
       });
-    });
-
-    const articleData = this.articleData;
-    console.log('Article(s) Data', articleData);
-
-    // if (!!this.selectedFile) {
-    //   this.uploading = true;
-
-      const postFile$ = this._fileUploadService.postFile(this.selectedFile);
-
-    //   postFile$.subscribe((data) => {
-    //     console.log('SearchPageComponent.handleFileInput postFile service call subscription returned data', data);
-    //     this.goToTab(2);
-    //     this.uploading = false;
-    //   });
-    // } else {
-    //   this.goToTab(2);
-    // }
+    }
+    else {
+      this.goToTab(2);
+    }
   }
 
   performQuery() {
@@ -143,10 +135,13 @@ export class SearchPageComponent implements OnInit {
       queryData.append('queryString', this.searchForm.controls.reportQueryText.value);
     }
 
+    console.log('performQuery')
     const apiResult$ = this._httpClient.post(endpoint, queryData, { headers: {} });
 
     apiResult$.subscribe(response => {
       console.log('performQuery POST API response', response);
+      this.returnedQuerySentences = response;
+      this.goToTab(3);
     });
 
   }

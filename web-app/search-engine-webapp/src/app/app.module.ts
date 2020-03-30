@@ -11,6 +11,7 @@ import { FileUploadService } from './services/file-upload.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SelectedArticleComponent } from './components/search-page/components/selected-article/selected-article.component';
 import { ArticleService } from './services/article.service';
+import { DataSelectionComponent } from './components/search-page/components/data-selection/data-selection.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { ArticleService } from './services/article.service';
     AppComponent,
     SearchPageComponent,
     SelectedArticleComponent,
-    QueryReportComponent
+    QueryReportComponent,
+    DataSelectionComponent
   ],
   imports: [
     HttpClientModule,

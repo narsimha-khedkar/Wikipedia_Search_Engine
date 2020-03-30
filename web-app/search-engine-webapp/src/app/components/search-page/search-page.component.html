@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-12">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand logo" href="#">TabrEZ Search</a>
+                <i class="fas fa-brain"></i> <a class="navbar-brand logo" href="#">TabrEZ Search</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
                 </button>
@@ -104,9 +104,9 @@
                         <div class="col-md-6">
                             <div class="input-group">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text">With textarea</span>
+                                    <span class="input-group-text">Enter your query.</span>
                                 </div>
-                                <textarea class="form-control" formControlName="reportQueryText" aria-label="With textarea"></textarea>
+                                <textarea class="form-control" formControlName="reportQueryText" aria-label="Enter your query."></textarea>
                             </div>
                         </div>
                     </div>
@@ -121,6 +121,17 @@
                             <button type="button" class="btn btn-danger btn-sm" (click)="startOver()">
                                 Start over
                             </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="card">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item" *ngFor="let item of returnedQuerySentences">
+                                        {{ item }}
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
