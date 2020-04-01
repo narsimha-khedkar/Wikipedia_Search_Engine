@@ -154,7 +154,7 @@ export class SearchPageComponent implements OnInit {
     this.activeTab = 1;
     this.selectedFile = null;
     this.queryResults.length = 0;
-    this.articleData = '';
+    this.articleData.length = 0;
     this.selectedQueryResults.length = 0;
     this.searchForm.controls['searchBox'].setValue('');
   }

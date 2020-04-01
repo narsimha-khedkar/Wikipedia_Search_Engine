@@ -10,7 +10,9 @@ import Levenshtein
 distance('Levenshtein', 'Lenvinsten')
 
 '''
+from Levenshtein import distance
 
+print('Distance between "Levenshtein" and "Lenvinsten": ' + str(distance('Levenshtein', 'Lenvinsten')))
 
 #from Levenshtein import process
 
