@@ -1,6 +1,11 @@
 # Introduction
 
-This is the Spring DASC6030 Group 1 repo for their Wikipedia & Textbook Search (name pending)
+This is the repo for the Wikipedia & Textbook Search
+
+# Abstract
+
+Within this Repo we describe how our web application utilizes the Wikipedia API to perform web crawling and indexing of the data from Wikipedia. Fortunately, we had
+implemented this functionality within the web application when we first started. As a synopsis, the web application uses the Wikipedia API to search for certain articles and in return the API crawls through the entire Wikipedia API in search of the articles while simultaneously indexing the data as well. Being able to index the data speeds up the process of searching since we do not need to crawl through the entire Wikipedia site numerous times.
 
 It currently contains the following projects:
 
